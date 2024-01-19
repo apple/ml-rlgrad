@@ -1,0 +1,106 @@
+{
+  "name": "Supervised vs Reinforcement MLP Finetuning controlled experiments plan",
+  "description": "",
+  "skip": 0,
+  "repetitions": 1,
+  "largest": false,
+  "multiprocess": false,
+  "num_parallel": 1,
+  "gpu_ids_pool": [],
+  "configurations": [
+    {
+      "base_config": {
+        "experiment_name": "{dataset}_{model_type}_{opt_method}_finetune_{reward_type}_{num_labels_per_sample}_modify_{frac_samples_to_modify_labels}_{optimizer}_lr_{lr}",
+        "random_seed": -1,
+        "gpu_ids": [
+          0
+        ],
+        "trainer_checkpoint": "",
+        "epochs": 5000,
+        "validate_every": 1,
+        "outputs_dir": "outputs/controlled",
+        "disable_console_log": false,
+        "save_logs": true,
+        "train_batch_log_interval": -1,
+        "epoch_log_interval": 10,
+        "save_metric_plots": true,
+        "save_every_num_val": 100,
+        "use_tensorboard": false,
+        "use_wandb": false,
+        "wandb_project_name": "wandb_project",
+        "wandb_entity_name": "",
+        "wandb_resume_id": "",
+        "wandb_track_model": null,
+        "wandb_exclude_files": [
+          "plots/**"
+        ],
+        "score_metric_name": "train loss",
+        "is_train_metric": true,
+        "score_largest": false,
+        "return_best_score": false,
+        "save_checkpoints": true,
+        "num_checkpoints": 1,
+        "save_checkpoints_by_score": false,
+        "early_stop": false,
+        "early_stop_min_delta": 0,
+        "early_stop_patience": 0,
+        "early_stop_cooldown": 0,
+        "early_stop_restore_best_weights": false,
+        "dataset": "mnist",
+        "num_train_samples": 1000,
+        "num_test_samples": 1000,
+        "samples_rnd_seed": -1,
+        "num_labels_per_sample": 1,
+        "use_multiple_labels_per_sample": false,
+        "frac_samples_to_modify_labels": 0,
+        "model_type": "mlp",
+        "mlp_hidden_layer_sizes": [
+          250,
+          100
+        ],
+        "init_rnd_seed": -1,
+        "opt_method": "supervised",
+        "reward_type": "labels",
+        "min_reward": -1,
+        "optimizer": "adam",
+        "lr": 0.0001,
+        "weight_decay": 0,
+        "kl_regularization_coeff": 0,
+        "kl_reg_ref_unif": false,
+        "logits_temperature": 1,
+        "batch_size": 512,
+        "load_model_from_checkpoint": "ADD PATH TO CHECKPOINT"
+      },
+      "options": {
+        "optimizer": [
+          "sgd"
+        ],
+        "lr": [
+          1e-2
+        ],
+        "opt_method": [
+          "expected_reinforce",
+          "supervised"
+        ],
+        "change_label_per_class": [
+          false
+        ],
+        "num_labels_per_sample": [
+          5
+        ],
+        "use_multiple_labels_per_sample": [
+          false
+        ],
+        "frac_samples_to_modify_labels": [
+          0.1
+        ],
+        "init_rnd_seed": [
+          111
+        ],
+        "samples_rnd_seed": [
+          192
+        ]
+      }
+    }
+  ]
+}

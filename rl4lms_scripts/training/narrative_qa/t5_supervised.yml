@@ -1,0 +1,61 @@
+tokenizer:
+  model_name: t5-base
+  padding_side: left
+  truncation_side: right
+  pad_token_as_eos_token: False
+  max_length: 512
+
+datapool:
+  id: narrative_qa
+  frac_train_samples: -1
+  train_samples_rnd_seed: -1
+
+alg:
+  id: supervised
+  training_args:
+    per_device_train_batch_size: 64
+    logging_steps: 500
+    num_train_epochs: 5
+    max_steps: -1
+    weight_decay: 0.01
+    lr_scheduler_type: "constant"
+    learning_rate: 0.00001
+    save_total_limit: 1
+  model_type: seq2seq
+  model_name: t5-base
+  generation_kwargs:
+    temperature: 1
+    do_sample: True
+    top_k: 50
+
+
+train_evaluation:
+  eval_batch_size: 50
+  metrics:
+    - id: meteor
+      args: { }
+    - id: rouge
+      args:
+        use_single_ref: False
+    - id: bleu
+      args: { }
+    - id: bert_score
+      args:
+        language: en
+    - id: rouge_l_max
+      args:
+        max_n: 4
+        limit_length: True
+        length_limit: 100
+        length_limit_type: "words"
+        apply_avg: True
+        apply_best: True,
+        alpha: 0.5
+        weight_factor: 1.2
+        stemming: True
+    - id: diversity
+      args: { }
+  generation_kwargs:
+    num_beams: 4
+    max_new_tokens: 50
+    post_processing_fn: null
